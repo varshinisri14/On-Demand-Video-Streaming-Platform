@@ -1,28 +1,77 @@
-function Register() {
+function Register({ setPage }) {
   return (
-    <div>
-      <h2>FounderHub Register</h2>
+    <div className="auth-page">
 
-      <input type="text" placeholder="Full Name" />
-      <br /><br />
+      <div className="auth-card">
 
-      <input type="email" placeholder="Email" />
-      <br /><br />
+        <div className="auth-logo">
+          Founder<span>Hub</span>
+        </div>
 
-      <input type="password" placeholder="Password" />
-      <br /><br />
+        <h1>Create your account</h1>
 
-      <input type="text" placeholder="Phone Number" />
-      <br /><br />
+        <p className="auth-subtitle">
+          Join FounderHub and become part of the startup community.
+        </p>
 
-      <select>
-        <option>User</option>
-        <option>Entrepreneur</option>
-        <option>Investor</option>
-      </select>
-      <br /><br />
+        <form>
 
-      <button>Register</button>
+          <label>Full Name</label>
+          <input
+            type="text"
+            placeholder="Enter your full name"
+          />
+
+          <label>Email</label>
+          <input
+            type="email"
+            placeholder="Enter your email"
+          />
+
+          <label>Phone Number</label>
+          <input
+            type="tel"
+            placeholder="Enter your phone number"
+          />
+
+          <label>Password</label>
+          <input
+            type="password"
+            placeholder="Create a password"
+          />
+
+          <label>Account Type</label>
+
+          <select>
+            <option value="user">User</option>
+            <option value="entrepreneur">Entrepreneur</option>
+            <option value="investor">Investor</option>
+          </select>
+
+          <button
+            type="button"
+            className="auth-submit"
+          >
+            Create Account
+          </button>
+
+        </form>
+
+        <p className="auth-footer">
+          Already have an account?
+
+          <button
+            type="button"
+            className="auth-link-button"
+            onClick={() => setPage("login")}
+          >
+            Sign in
+          </button>
+
+        </p>
+
+      </div>
+
     </div>
   );
 }

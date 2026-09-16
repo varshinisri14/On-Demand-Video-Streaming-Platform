@@ -1,15 +1,72 @@
-function Login() {
+function Login({ setPage }) {
   return (
-    <div>
-      <h2>FounderHub Login</h2>
+    <div className="auth-page">
 
-      <input type="email" placeholder="Email" />
-      <br /><br />
+      <div className="auth-card">
 
-      <input type="password" placeholder="Password" />
-      <br /><br />
+        <div className="auth-logo">
+          Founder<span>Hub</span>
+        </div>
 
-      <button>Login</button>
+        <h1>Welcome back</h1>
+
+        <p className="auth-subtitle">
+          Sign in to continue your FounderHub journey.
+        </p>
+
+        <form>
+
+          <label>Email</label>
+
+          <input
+            type="email"
+            placeholder="Enter your email"
+          />
+
+          <label>Password</label>
+
+          <input
+            type="password"
+            placeholder="Enter your password"
+          />
+
+          <div className="auth-options">
+
+            <label className="remember">
+              <input type="checkbox" />
+              Remember me
+            </label>
+
+            <a href="#forgot">
+              Forgot password?
+            </a>
+
+          </div>
+
+          <button
+            type="button"
+            className="auth-submit"
+          >
+            Sign In
+          </button>
+
+        </form>
+
+        <p className="auth-footer">
+          Don't have an account?
+
+          <button
+            type="button"
+            className="auth-link-button"
+            onClick={() => setPage("register")}
+          >
+            Create one
+          </button>
+
+        </p>
+
+      </div>
+
     </div>
   );
 }
