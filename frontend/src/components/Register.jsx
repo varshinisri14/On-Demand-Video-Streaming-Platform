@@ -1,7 +1,50 @@
+import { useState } from "react";
+
 function Register({ setPage }) {
+
+  const [formData, setFormData] = useState({
+    fullName: "",
+    email: "",
+    phone: "",
+    password: "",
+    role: "USER"
+  });
+
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value
+    });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      const response = await fetch("http://localhost:8080/api/auth/register", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(formData)
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        alert("Registration successful!");
+        setPage("login");
+      } else {
+        alert(data.message || "Registration failed");
+      }
+
+    } catch (error) {
+      alert("Backend server is not running");
+    }
+  };
+
   return (
     <div className="auth-page">
-
       <div className="auth-card">
 
         <div className="auth-logo">
@@ -14,44 +57,60 @@ function Register({ setPage }) {
           Join FounderHub and become part of the startup community.
         </p>
 
-        <form>
+        <form onSubmit={handleSubmit}>
 
           <label>Full Name</label>
           <input
             type="text"
+            name="fullName"
             placeholder="Enter your full name"
+            value={formData.fullName}
+            onChange={handleChange}
+            required
           />
 
           <label>Email</label>
           <input
             type="email"
+            name="email"
             placeholder="Enter your email"
+            value={formData.email}
+            onChange={handleChange}
+            required
           />
 
           <label>Phone Number</label>
           <input
             type="tel"
+            name="phone"
             placeholder="Enter your phone number"
+            value={formData.phone}
+            onChange={handleChange}
+            required
           />
 
           <label>Password</label>
           <input
             type="password"
+            name="password"
             placeholder="Create a password"
+            value={formData.password}
+            onChange={handleChange}
+            required
           />
 
           <label>Account Type</label>
-
-          <select>
-            <option value="user">User</option>
-            <option value="entrepreneur">Entrepreneur</option>
-            <option value="investor">Investor</option>
+          <select
+            name="role"
+            value={formData.role}
+            onChange={handleChange}
+          >
+            <option value="USER">User</option>
+            <option value="ENTREPRENEUR">Entrepreneur</option>
+            <option value="INVESTOR">Investor</option>
           </select>
 
-          <button
-            type="button"
-            className="auth-submit"
-          >
+          <button type="submit" className="auth-submit">
             Create Account
           </button>
 
@@ -67,11 +126,9 @@ function Register({ setPage }) {
           >
             Sign in
           </button>
-
         </p>
 
       </div>
-
     </div>
   );
 }
