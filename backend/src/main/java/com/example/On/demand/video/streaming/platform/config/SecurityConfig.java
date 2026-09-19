@@ -29,7 +29,9 @@ public class SecurityConfig {
                             new org.springframework.web.cors.CorsConfiguration();
 
                     configuration.setAllowedOrigins(
-                            java.util.List.of("http://localhost:5173")
+                            java.util.List.of(
+                                    "http://localhost:5173"
+                            )
                     );
 
                     configuration.setAllowedMethods(
@@ -58,10 +60,16 @@ public class SecurityConfig {
                 )
 
                 .authorizeHttpRequests(auth -> auth
+
                         .requestMatchers(
                                 "/api/auth/register",
                                 "/api/auth/login"
                         ).permitAll()
+
+                        .requestMatchers(
+                                "/api/videos/stream/**"
+                        ).permitAll()
+
                         .anyRequest().authenticated()
                 )
 
