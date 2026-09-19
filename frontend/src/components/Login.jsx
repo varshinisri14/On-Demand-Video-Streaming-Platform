@@ -21,13 +21,30 @@ function Login({ setPage }) {
       });
 
       const data = await response.json();
-       if (response.ok) {
-    localStorage.setItem("token", data.token);
-    localStorage.setItem("user", JSON.stringify(data.data));
 
-    alert("Login successful!");
-}
-     else {
+      if (response.ok) {
+
+        const user = data.data;
+
+        localStorage.setItem("token", data.token);
+        localStorage.setItem("user", JSON.stringify(user));
+
+        alert("Login successful!");
+
+        if (user.role === "USER") {
+          setPage("user-dashboard");
+        } 
+        else if (user.role === "ENTREPRENEUR") {
+          setPage("entrepreneur-dashboard");
+        } 
+        else if (user.role === "INVESTOR") {
+          setPage("investor-dashboard");
+        } 
+        else {
+          setPage("home");
+        }
+
+      } else {
         alert(data.message || "Login failed");
       }
 
@@ -53,6 +70,7 @@ function Login({ setPage }) {
         <form onSubmit={handleSubmit}>
 
           <label>Email</label>
+
           <input
             type="email"
             placeholder="Enter your email"
@@ -62,6 +80,7 @@ function Login({ setPage }) {
           />
 
           <label>Password</label>
+
           <input
             type="password"
             placeholder="Enter your password"
@@ -71,15 +90,20 @@ function Login({ setPage }) {
           />
 
           <div className="auth-options">
+
             <label className="remember">
               <input type="checkbox" />
               Remember me
             </label>
 
             <a href="#forgot">Forgot password?</a>
+
           </div>
 
-          <button type="submit" className="auth-submit">
+          <button
+            type="submit"
+            className="auth-submit"
+          >
             Sign In
           </button>
 
