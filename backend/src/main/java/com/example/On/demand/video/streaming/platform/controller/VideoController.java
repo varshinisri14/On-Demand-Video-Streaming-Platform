@@ -28,7 +28,9 @@ public class VideoController {
     }
 
     @PostMapping
-    public ResponseEntity<Video> createVideo(@RequestBody Video video) {
+    public ResponseEntity<Video> createVideo(
+            @RequestBody Video video) {
+
         return ResponseEntity
                 .status(HttpStatus.CREATED)
                 .body(service.createVideo(video));
@@ -36,12 +38,19 @@ public class VideoController {
 
     @GetMapping
     public ResponseEntity<List<Video>> getAllVideos() {
-        return ResponseEntity.ok(service.getAllVideos());
+
+        return ResponseEntity.ok(
+                service.getAllVideos()
+        );
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Video> getVideoById(@PathVariable Integer id) {
-        return ResponseEntity.ok(service.getVideoById(id));
+    public ResponseEntity<Video> getVideoById(
+            @PathVariable Integer id) {
+
+        return ResponseEntity.ok(
+                service.getVideoById(id)
+        );
     }
 
     @GetMapping("/entrepreneur/{entrepreneurId}")
@@ -53,9 +62,12 @@ public class VideoController {
         );
     }
 
-    @GetMapping("/approved")
-    public ResponseEntity<List<Video>> getApprovedVideos() {
-        return ResponseEntity.ok(service.getApprovedVideos());
+    @GetMapping("/available")
+    public ResponseEntity<List<Video>> getAvailableVideos() {
+
+        return ResponseEntity.ok(
+                service.getAllVideos()
+        );
     }
 
     @PutMapping("/{id}")
@@ -98,7 +110,9 @@ public class VideoController {
             );
 
             if (!resource.exists()) {
-                return ResponseEntity.notFound().build();
+                return ResponseEntity
+                        .notFound()
+                        .build();
             }
 
             long contentLength = resource.contentLength();

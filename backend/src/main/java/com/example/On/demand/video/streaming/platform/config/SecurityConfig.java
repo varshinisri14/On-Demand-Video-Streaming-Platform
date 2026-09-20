@@ -12,15 +12,19 @@ public class SecurityConfig {
 
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
 
-    public SecurityConfig(JwtAuthenticationFilter jwtAuthenticationFilter) {
-        this.jwtAuthenticationFilter = jwtAuthenticationFilter;
+    public SecurityConfig(
+            JwtAuthenticationFilter jwtAuthenticationFilter) {
+
+        this.jwtAuthenticationFilter =
+                jwtAuthenticationFilter;
     }
 
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http)
-            throws Exception {
+    public SecurityFilterChain securityFilterChain(
+            HttpSecurity http) throws Exception {
 
         http
+
                 .csrf(csrf -> csrf.disable())
 
                 .cors(cors -> cors.configurationSource(request -> {
@@ -63,14 +67,14 @@ public class SecurityConfig {
 
                         .requestMatchers(
                                 "/api/auth/register",
-                                "/api/auth/login"
-                        ).permitAll()
-
-                        .requestMatchers(
+                                "/api/auth/login",
+                                "/api/videos/approved",
                                 "/api/videos/stream/**"
-                        ).permitAll()
+                        )
+                        .permitAll()
 
-                        .anyRequest().authenticated()
+                        .anyRequest()
+                        .authenticated()
                 )
 
                 .addFilterBefore(

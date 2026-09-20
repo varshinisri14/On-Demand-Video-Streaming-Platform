@@ -2,6 +2,7 @@ package com.example.On.demand.video.streaming.platform.service;
 
 import com.example.On.demand.video.streaming.platform.model.entity.Video;
 import com.example.On.demand.video.streaming.platform.repository.VideoRepository;
+
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -22,10 +23,6 @@ public class VideoService {
             video.setUploadDate(LocalDateTime.now());
         }
 
-        if (video.getApprovalStatus() == null) {
-            video.setApprovalStatus("PENDING");
-        }
-
         return repository.save(video);
     }
 
@@ -34,16 +31,14 @@ public class VideoService {
     }
 
     public Video getVideoById(Integer id) {
+
         return repository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Video not found"));
     }
 
     public List<Video> getVideosByEntrepreneur(Integer entrepreneurId) {
-        return repository.findByEntrepreneurEntrepreneurId(entrepreneurId);
-    }
 
-    public List<Video> getApprovedVideos() {
-        return repository.findByApprovalStatus("APPROVED");
+        return repository.findByEntrepreneurEntrepreneurId(entrepreneurId);
     }
 
     public Video updateVideo(Integer id, Video updatedVideo) {
