@@ -34,9 +34,6 @@ public class Video {
     @Column(name = "upload_date")
     private LocalDateTime uploadDate;
 
-    @Column(name = "approval_status")
-    private String approvalStatus;
-
     public Video() {
     }
 
@@ -102,13 +99,5 @@ public class Video {
 
     public void setUploadDate(LocalDateTime uploadDate) {
         this.uploadDate = uploadDate;
-    }
-
-    public String getApprovalStatus() {
-        return approvalStatus;
-    }
-
-    public void setApprovalStatus(String approvalStatus) {
-        this.approvalStatus = approvalStatus;
     }
 }
